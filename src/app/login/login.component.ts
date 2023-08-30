@@ -15,27 +15,42 @@ import { Router} from '@angular/router';
 export class LoginComponent {
 
   loginForm: FormGroup;
-  isLoggedIn: boolean;
+  isLoggedIn = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService,  private title: Title, private router: Router) {
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.isLoggedIn =  this.authService.isAuthenticated();
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       // Aquí puedes realizar la lógica de autenticación
       const formData: LoginForm = this.loginForm.value as LoginForm;
-      this.authService.validAuth(formData.username, formData.password)
-      this.authService.login();
-      this.router.navigate(['home']);
+      this.isLoggedIn = this.authService.validAuth(formData.username, formData.password) ? true: false;
+      if(this.isLoggedIn.toString() === "true"){
+        this._saveSession();
+        this.router.navigate(['home']);
+      }else{
+        this.router.navigate(['login']);
+      }
+
     }
   }
 
   ngOnInit(){
-    this.title.setTitle('Login');
+    if(this.authService.getSession() !== "true"){
+      console.log(this.authService.getSession());
+      this.router.navigate(['login']);
+      }else{
+        this.router.navigate(['home']);
+      }
   }
+
+  async _saveSession(){
+    await localStorage.setItem("session","true");
+  }
+
 }

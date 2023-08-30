@@ -15,7 +15,7 @@ export class HomeComponent{
 
 
   constructor(private authService: AuthService, private router: Router) {
-    if(this.authService.getSession()?.toString() !== "true"){
+    if(this.authService.getSession() !== "true"){
       console.log(this.authService.getSession());
         this.router.navigate(['login']);
       }

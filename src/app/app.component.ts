@@ -9,10 +9,8 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title='first-app'
-  isLoggedIn : boolean;
-  constructor(private authService: AuthService){
-    this.isLoggedIn = this.authService.isAuthenticated();
+  title='first-app';
+  constructor(){
 
   }
 }

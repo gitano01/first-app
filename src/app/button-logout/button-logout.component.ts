@@ -9,18 +9,16 @@ import { AuthService } from '../auth/auth.service';
 })
 
 export class ButtonLogoutComponent implements OnInit {
-  isLoggedIn: boolean;
+
   constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedIn = authService.isAuthenticated();
+
    }
 
   ngOnInit(): void {
   }
 
   logOut(){
-
-    this.isLoggedIn =this.authService.logout();
+    this.authService.logout();
     this.router.navigate(['login']);
-
   }
 }

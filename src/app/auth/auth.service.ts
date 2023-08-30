@@ -6,40 +6,28 @@ import { Injectable } from '@angular/core';
 
 
 export class AuthService {
-  isLoggedIn = false; // Simulación de sesión activa
-
-    async _saveSession  (){
-      await localStorage.setItem("session","true");
-    }
+  isLoggedIn : boolean = false; // Simulación de sesión activa
 
 
-
-  validAuth( username: string, password:string ){
+  validAuth(username: string, password:string ){
     if(username==='username' && password==='password'){
       alert('usuario correcto');
-      this._saveSession();
-
-      //console.log(this.getSession());
-
-    }else{
-      alert('No es el usuario correcto');
+      this.isLoggedIn = true;
     }
+    return this.isLoggedIn;
   }
 
   getSession(){
     return localStorage.getItem("session");
   }
-
-  login() {
-    this.isLoggedIn = true;
-  }
-
   logout() {
     this.isLoggedIn = false;
-    return this.isLoggedIn;
+    return localStorage.setItem("session", this.isLoggedIn.toString());
+    //return this.isLoggedIn;
   }
 
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
+  isAuthenticated(){
+    return localStorage.getItem("session");
+    //return this.isLoggedIn;
   }
 }
