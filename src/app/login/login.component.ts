@@ -2,10 +2,11 @@ import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Title}  from '@angular/platform-browser';
-import { LoginForm } from './login.model';
+
 
 //import para la navegacion
 import { Router} from '@angular/router';
+import { LoginForm } from './login-form.model';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       // Aquí puedes realizar la lógica de autenticación
       const formData: LoginForm = this.loginForm.value as LoginForm;
-      this.isLoggedIn = this.authService.validAuth(formData.username, formData.password) ? true: false;
+      this.isLoggedIn = this.authService.validAuth(formData) ? true: false;
       if(this.isLoggedIn.toString() === "true"){
         this._saveSession();
         this.router.navigate(['home']);
