@@ -30,14 +30,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       // Aquí puedes realizar la lógica de autenticación
       const formData: LoginForm = this.loginForm.value as LoginForm;
-      this.isLoggedIn = this.authService.validAuth(formData) ? true: false;
-      if(this.isLoggedIn.toString() === "true"){
-        this._saveSession();
-        this.router.navigate(['home']);
-      }else{
-        this.router.navigate(['login']);
-      }
-
+      this.authService.validAuth(formData);
     }
   }
 
